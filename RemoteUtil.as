@@ -1,6 +1,5 @@
 package libs
 {
-	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	import mx.events.CloseEvent;
 	import mx.rpc.remoting.RemoteObject
