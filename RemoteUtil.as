@@ -2,10 +2,10 @@ package libs
 {
 	import flash.utils.getQualifiedClassName;
 	import mx.events.CloseEvent;
+	import mx.controls.Alert;
 	import mx.rpc.remoting.RemoteObject
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.events.FaultEvent;
-	import mx.controls.Alert;
 	
 	/**
 	 * RemoteObjectの通信ユーティリティクラス
@@ -14,10 +14,10 @@ package libs
 	 * @author utatyaku
 	 */
 	public class RemoteUtil {
-		public var debug:Boolean = false;
-		
+		public var debug:Boolean = false; // デバッグフラグ
 		public var remote:RemoteObject;
 		
+		// 各種イベント
 		public var resultEvent:Function = null; // 通信成功時のイベント
 		public var faultEvent:Function = null; // 通信失敗時のイベント
 		public var lastEvent:Function = null; // 通信終了時、一番最後に実行されるイベント
@@ -35,7 +35,6 @@ package libs
 		public var faultMessage:String = '通信エラーが発生しました。\n通信環境を確認してください。'; // 通信エラー時のメッセージ
 		
 		public var isError:Boolean = false; // エラーの有無
-		public var reconnection:Boolean = false; // 再接続フラグ
 		
 		private var retryCount:int = 0;
 		
@@ -46,8 +45,8 @@ package libs
 		 */
 		public function RemoteUtil(destId:String) {
 			this.remote = new RemoteObject(destId);
-			remote.addEventListener(ResultEvent.RESULT, this.complete);
-			remote.addEventListener(FaultEvent.FAULT, this.complete);
+			this.remote.addEventListener(ResultEvent.RESULT, this.complete);
+			this.remote.addEventListener(FaultEvent.FAULT, this.complete);
 		}
 		
 		/**
